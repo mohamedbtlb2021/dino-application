@@ -2,58 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/decor"
     tools:context=".MainActivity"
     tools:ignore="ExtraText"
     tools:visibility="visible">
 
 
-    <!--android:onClick="onClickResultat" on va tester setOnclicklistener --><![CDATA[
-        android:text="START"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ]]><!-- <com.example.dino.DrawingView
-        android:id="@+id/vMain"
-        android:layout_width="0dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="29dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/resultat"
-        app:layout_constraintStart_toStartOf="@+id/startok"
-        app:layout_constraintTop_toTopOf="@+id/startok" /> -->
-
-    <ImageView
-        android:id="@+id/deco"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:baselineAlignBottom="false"
-        android:clickable="false"
-        android:cropToPadding="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/decor" />
 
     <Button
         android:id="@+id/startok"
@@ -70,9 +27,9 @@
         android:id="@+id/resultat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:background="#FFFFFF"
         android:text="SCORE    :"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,8 +58,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
         android:layout_marginTop="92dp"
         android:layout_marginBottom="75dp"
         android:text="change character"

@@ -16,17 +16,13 @@ class MainActivity : AppCompatActivity(){
 
         //drawingView = findViewById(R.id.vMain)
         boutonStart = findViewById(R.id.startok)
-        //resultat= findViewById(R.id.resultat)
+
         boutonStart.setOnClickListener {
-            //resultat.setBackgroundColor(Color.RED) ?????  pq ca fait buger
+
             boutonStart.setText("LET'S GOOO!!!!")
-           // drawingView.setBackgroundColor(Color.GREEN)
+
         }
     }
-     /*fun onClickResultat ( v: View) {
-        boutonStart.setText("RUINA!!!!")
-        drawingView.setBackgroundColor(Color.RED)
-    }*/
-}
+
 
 
