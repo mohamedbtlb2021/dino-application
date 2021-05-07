@@ -6,9 +6,8 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.view.MotionEvent
 
-class BalleCanon (var view: CanonView, val obstacle: Obstacle, /*val cible: Cible*/) {
+class BalleCanon (var view: CanonView, val obstacle: Obstacle) {
 
-    //val hauteurMax = view.screenWidth / 2f
     var canonball = PointF()
     var canonballVitesse = 0f
     var canonballVitesseX = 0f
@@ -30,22 +29,12 @@ class BalleCanon (var view: CanonView, val obstacle: Obstacle, /*val cible: Cibl
         canonballOnScreen = true
     }
 
-    /*override fun onTouchEvent(event: MotionEvent): Boolean {
-        dinosourUp += 1
-
-        if(dinosaureY>=((canvasHeight/100)*60) && event.action == MotionEvent.ACTION_DOWN)
-        {
-            touch = true
-            dinosaureVitesse = -50
-
-        }*/
 
     fun draw(canvas: Canvas) {
         canvas.drawCircle(
             canonball.x, canonball.y, canonballRadius,
             canonballPaint
         )
-        /*int left, int top, int right, int bottom*/
     }
 
     fun resetCanonBall() {
@@ -55,7 +44,7 @@ class BalleCanon (var view: CanonView, val obstacle: Obstacle, /*val cible: Cibl
     fun update(interval: Double) {
 
         if (canonball.x > 350) {
-                canonballVitesseX = (-500).toFloat()
+                canonballVitesseX = (-300).toFloat()
                 }
 
         if (canonballOnScreen) {
@@ -63,11 +52,9 @@ class BalleCanon (var view: CanonView, val obstacle: Obstacle, /*val cible: Cibl
             canonball.y += (interval * canonballVitesseY).toFloat()
 
             /* Vérifions si la balle touche l'obstacle ou pas */
-            if (canonball.x + canonballRadius > obstacle.obstacle.left
-                && canonball.y + canonballRadius > obstacle.obstacle.top
-                && canonball.y - canonballRadius < obstacle.obstacle.bottom
+            if (canonball.y + canonballRadius > obstacle.obstacle.top
             ) {
-                canonballVitesseX *= -1
+                canonballVitesseX = -canonballVitesseX
                 canonball.offset((5 * canonballVitesseX * interval).toFloat(), 0f)
                 //view.reduceTimeLeft()
                 //view.playObstacleSound()
@@ -78,10 +65,10 @@ class BalleCanon (var view: CanonView, val obstacle: Obstacle, /*val cible: Cibl
             ) {
                 canonballVitesseX = 0f
             }
-            else if (canonball.y + canonballRadius > view.screenHeight
-                || canonball.y - canonballRadius < 0) {
-                canonballVitesseY = -canonballVitesseY
-                }
+//            else if (canonball.y + canonballRadius > view.screenHeight
+//                || canonball.y - canonballRadius < 0) {
+//                canonballVitesseY = -canonballVitesseY
+//                }
 //            else if (canonball.x + canonballRadius>cible.cible.left
 //                && canonball.y + canonballRadius>cible.cible.top
 //                && canonball.y - canonballRadius<cible.cible.bottom) {

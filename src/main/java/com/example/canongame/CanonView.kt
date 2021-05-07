@@ -33,10 +33,9 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
 
     lateinit var thread: Thread
 
-    //val canon = Canon(0f, 0f, 0f, 0f, this)
+
     val obstacle1 = Obstacle(0f, 0f, 0f, 0f, 0f, this)
     val obstacle2 = Obstacle(0f, 0f, 0f, 0f, 0f, this)
-    //val cible = Cible(0f, 0f, 0f, 0f, 0f, this)
     val balle = BalleCanon(this, obstacle1, /*cible*/)
 
     var shotsFired = 0
@@ -54,20 +53,6 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         textPaint.color = Color.BLACK
         timeLeft = 10.0
 
-//        val audioAttributes = AudioAttributes.Builder()
-//                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-//                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-//                .build()
-//
-//        soundPool = SoundPool.Builder()
-//                .setMaxStreams(1)
-//                .setAudioAttributes(audioAttributes)
-//                .build()
-//
-//        soundMap = SparseIntArray(3)
-//        soundMap.put(0, soundPool.load(context, R.raw.target_hit, 1))
-//        soundMap.put(1, soundPool.load(context, R.raw.canon_fire, 1))
-//        soundMap.put(2, soundPool.load(context, R.raw.blocker_hit, 1))
     }
 
     fun pause() {
@@ -99,10 +84,6 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
 
-        /*canon.canonBaseRadius = (h / 18f)
-        canon.canonLongueur = (w / 8f)
-        canon.largeur = (w / 24f)
-        canon.setFinCanon(h / 2f)*/
 
         balle.canonballRadius= (w / 18f)
         balle.canonballVitesse = (w * 3 / 4f)
@@ -112,22 +93,15 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         obstacle1.obstacleDebut = (h*1f)
         obstacle1.obstacleFin = (h * 1f - 100f)
         obstacle1.width = (w / 6f)
-        obstacle1.initialObstacleVitesse = (-h / 1f)
+        obstacle1.initialObstacleVitesse = (-h / 5f)
         obstacle1.setRect()
 
         obstacle2.obstacleDistance = (0f)
-        obstacle2.obstacleDebut = (h * 1f)
-        obstacle2.obstacleFin = (h *1f - 100f)
-        obstacle2.width = (w / 2f)
-        obstacle2.initialObstacleVitesse = (-h / 8f)
+        obstacle2.obstacleDebut = (h * 2 / 3f + 100)
+        obstacle2.obstacleFin = (h * 2 / 3f)
+        obstacle2.width = (w / 3f)
+        obstacle2.initialObstacleVitesse = (-h * 0f)
         obstacle2.setRect()
-
-//        cible.width = (w / 24f)
-//        cible.cibleDistance= (w * 7 / 8f)
-//        cible.cibleDebut = (h / 8f)
-//        cible.cibleFin = (h * 7 / 8f)
-//        cible.cibleVitesseInitiale = (-h / 4f)
-//        cible.setRect()
 
         textPaint.setTextSize(w / 20f)
         textPaint.isAntiAlias = true
@@ -143,12 +117,10 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
             val formatted = String.format("%.2f", timeLeft)
             canvas.drawText("Il reste $formatted secondes. ",
                 30f, 50f, textPaint)
-            //canon.draw(canvas)
             if (balle.canonballOnScreen)
                 balle.draw(canvas)
             obstacle1.draw(canvas)
             obstacle2.draw(canvas)
-            //cible.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
         }
     }
@@ -157,7 +129,6 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         val interval = elapsedTimeMS / 1000.0
         obstacle1.update(interval)
         obstacle2.update(interval)
-        //cible.update(interval)
         balle.update(interval)
         timeLeft -= interval
 
@@ -209,9 +180,9 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
     }
 
     fun newGame() {
-        //cible.resetCible()
-        obstacle1.resetObstacle()
-        obstacle2.resetObstacle()
+
+        //obstacle1.resetObstacle()
+        //obstacle2.resetObstacle()
         timeLeft = 10.0
         balle.resetCanonBall()
         shotsFired = 0
@@ -224,9 +195,8 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         }
     }
 
-     fun onTouchEvent(e: MotionEvent, angle : Double): Boolean {
+     override fun onTouchEvent(e: MotionEvent): Boolean {
         val action = e.action
-        balle.canonballVitesseX = (balle.canonballVitesse * Math.sin(angle)).toFloat()
         if (action == MotionEvent.ACTION_DOWN
             || action == MotionEvent.ACTION_MOVE) {
             fireCanonball(e)
@@ -235,11 +205,12 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
     }
 
     fun fireCanonball(event: MotionEvent) {
-        if (! balle.canonballOnScreen) {
+
+        if (!balle.canonballOnScreen || balle.canonballVitesseX == 0f) {
             val angle = alignCanon(event)
             balle.launch(angle)
             ++shotsFired
-            //soundPool.play(soundMap.get(1), 1f, 1f, 1, 0, 1f)
+
         }
     }
 
@@ -263,13 +234,6 @@ class CanonView @JvmOverloads constructor (context: Context, attributes: Attribu
         timeLeft += HIT_REWARD
     }
 
-//    fun playObstacleSound() {
-//        soundPool.play(soundMap.get(2), 1f, 1f, 1, 0, 1f)
-//    }
-//
-//    fun playCibleSound() {
-//        soundPool.play(soundMap.get(0), 1f, 1f, 1, 0, 1f)
-//    }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}

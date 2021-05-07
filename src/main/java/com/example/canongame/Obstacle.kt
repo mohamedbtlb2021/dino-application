@@ -14,6 +14,7 @@ class Obstacle (var obstacleDistance: Float, var obstacleDebut: Float, var obsta
     var obstacleVitesse = initialObstacleVitesse
 
 
+
     fun setRect() {
         obstacle.set(
             obstacleDistance, obstacleDebut,
@@ -32,27 +33,32 @@ class Obstacle (var obstacleDistance: Float, var obstacleDebut: Float, var obsta
         var up = (interval * obstacleVitesse).toFloat()
         obstacle.offset(0f, up)
         if (obstacle.top < 0 || obstacle.bottom > view.screenHeight) {
-//            obstacleVitesse *= -1
             obstacle.resetObstacle()
-//            up = (interval * 3 * obstacleVitesse).toFloat()
-//            obstacle.offset(0f, up)
         }
     }
 
-    fun resetObstacle() {
-        obstacleVitesse = initialObstacleVitesse
-        obstacle.set(
-            obstacleDistance, obstacleDebut,
-            obstacleDistance + width, obstacleFin
-        )
-    }
-
-
     private fun RectF.resetObstacle() {
+//        screenWidth = w.toFloat()
+//        screenHeight = h.toFloat()
+
+
+
         obstacleVitesse = initialObstacleVitesse
+        obstacleDistance = 0f
+        obstacleDebut = 1200f
+        obstacleFin = 1000f
         obstacle.set(
             obstacleDistance, obstacleDebut,
             obstacleDistance + width, obstacleFin
         )
     }
+
+
+//    private fun RectF.resetObstacle() {
+//        obstacleVitesse = initialObstacleVitesse
+//        obstacle.set(
+//            obstacleDistance, obstacleDebut,
+//            obstacleDistance + width, obstacleFin
+//        )
+//    }
 }
